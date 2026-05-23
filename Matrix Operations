@@ -1,0 +1,190 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void Matrix_Addition();
+void Matrix_Multiplication();
+void Transpose();
+
+int main()
+{
+	int choice,c_char;
+	printf("===This program is used to perform tasks on Matrices===");
+	for(c_char='Y';(c_char=='y'||c_char=='Y')&&(c_char!='n'&&c_char!='N');) 
+	{
+		printf("\n 1--> Matrix Addition\n 2--> Matrix Multiplication\n 3--> Transpose");
+		printf("\nEnter your Choice from 1-3:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:
+				Matrix_Addition();
+				break;
+			case 2:
+				Matrix_Multiplication();
+				break;
+			case 3:
+				Transpose();
+				break;
+			default:
+				printf("You did not Enter the right choice");
+				break;
+		}
+	while(1==1)
+		{
+			printf("\nDo you wish to calculate again?(Y/N)");
+			scanf(" %c",&c_char); 
+			if((c_char=='y'||c_char=='Y'||c_char=='n'||c_char=='N'))
+				break;
+			else
+				printf("\nYou didnt enter a valid response!\nTry Again! ");
+		}
+	}
+	return 0;
+}
+void Matrix_Addition()
+{
+	int r1,r2,c1,c2,i,j;
+	printf("\nEnter the number of rows of the Matrix 1:"); scanf("%d",&r1);
+	printf("\nEnter the number of columns of the Matrix 1:"); scanf("%d",&c1);
+	printf("\nEnter the number of rows of the Matrix 2:"); scanf("%d",&r2);
+	printf("\nEnter the number of columns of the Matrix 2:"); scanf("%d",&c2);
+	if (r1==r2 && c1==c2)
+	{
+		
+		int matrix1[c1][r1],matrix2[c2][r2],Sum[c1][r1]; 
+		printf("\nEnter the Matrix 1:\n");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c1;j++)
+				scanf("%d",&matrix1[j][i]);
+		}
+		printf("Matrix 1 is:\n");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c1;j++)
+				printf("%d\t",matrix1[j][i]);
+			printf("\n");	
+		}
+		printf("\nEnter the Matrix 2:\n");
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				scanf("%d",&matrix2[j][i]);
+		}
+		printf("Matrix 2 is:\n");
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				printf("%d\t",matrix2[j][i]);
+			printf("\n");	
+		}
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				Sum[j][i]=matrix1[j][i]+matrix2[j][i];	
+		}
+		printf("The Sum Matrix is:\n"); 
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				printf("%d\t",Sum[j][i]);
+			printf("\n");	
+		}
+	}
+	else
+		printf("\nThese Matrices cannot be added");
+}
+void Matrix_Multiplication()
+{
+	int i,j,k,c1,c2,r1,r2,common;
+	int result = 0; 
+	printf("\nEnter the number of rows of the Matrix 1:"); scanf("%d",&r1);
+	printf("\nEnter the number of columns of the Matrix 1:"); scanf("%d",&c1);
+	printf("\nEnter the number of rows of the Matrix 2:"); scanf("%d",&r2);
+	printf("\nEnter the number of columns of the Matrix 2:"); scanf("%d",&c2);
+	
+	if (c1 == r2)
+	{
+		common = c1; 
+		int matrix1[c1][r1],matrix2[c2][r2];
+		int product[c2][r1]; 
+		
+		printf("\nEnter the Matrix 1:\n");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c1;j++)
+				scanf("%d",&matrix1[j][i]);
+		}
+		printf("Matrix 1 is:\n");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c1;j++)
+				printf("%d\t",matrix1[j][i]);
+			printf("\n");	
+		}
+		printf("\nEnter the Matrix 2:\n");
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				scanf("%d",&matrix2[j][i]);
+		}
+		printf("Matrix 2 is:\n");
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+				printf("%d\t",matrix2[j][i]);
+			printf("\n");	
+		}
+		
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c2;j++)
+			{
+				for(k=0;k<common;k++)
+					{
+						result+= matrix1[k][i]*matrix2[j][k];
+					}
+				product[j][i]=result;
+				result=0;
+			}
+		}
+		
+		printf("The Product Matrix is:\n"); 
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c2;j++)
+				printf("%d\t",product[j][i]);
+			printf("\n");	
+		}
+	}
+	else
+		printf("\nThese matrices cannot Multiply!");
+}
+
+void Transpose()
+{
+	int i,j,r,c;
+	printf("\nEnter the number of rows of the Matrix:"); scanf("%d",&r);
+	printf("\nEnter the number of columns of the Matrix:"); scanf("%d",&c);
+	int matrix[c][r]; 
+	printf("\nEnter the Matrix:\n");
+	for(i=0;i<r;i++)
+	{
+		for(j=0;j<c;j++)
+			scanf("%d",&matrix[j][i]);
+	}
+	printf("Your Matrix is:\n");
+	for(i=0;i<r;i++)
+	{
+		for(j=0;j<c;j++)
+			printf("%d\t",matrix[j][i]);
+		printf("\n");	
+	}
+	printf("\nTranspose of a matrix is:\n");
+	for(j=0;j<c;j++)
+	{	
+		for(i=0;i<r;i++)
+			printf("%d\t",matrix[j][i]);
+		printf("\n");
+	}
+}
